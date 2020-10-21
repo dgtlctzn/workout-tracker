@@ -8,10 +8,9 @@ const PORT = process.env.PORT || 3000;
 const exerciseController = require("./controllers/exerciseController");
 const workoutController = require("./controllers/workoutController");
 
-
+app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static("public"));
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workoutDB", {
   useNewUrlParser: true,
@@ -36,7 +35,7 @@ app.get("/api/config", (req, res) => {
   });
 });
 
-app.use(exerciseController);
+// app.use(exerciseController);
 app.use(workoutController);
 
 app.listen(PORT, () => {
