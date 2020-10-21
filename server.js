@@ -5,6 +5,10 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 
+const exerciseController = require("./controllers/exerciseController");
+const workoutController = require("./controllers/workoutController");
+
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
@@ -31,6 +35,9 @@ app.get("/api/config", (req, res) => {
     success: true,
   });
 });
+
+app.use(exerciseController);
+app.use(workoutController);
 
 app.listen(PORT, () => {
   console.log(`listening on http://localhost:${PORT}`);
