@@ -5,7 +5,6 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 
-const exerciseController = require("./controllers/exerciseController");
 const workoutController = require("./controllers/workoutController");
 const htmlController = require("./controllers/htmlController");
 
@@ -36,7 +35,6 @@ app.get("/api/config", (req, res) => {
   });
 });
 
-// app.use(exerciseController);
 app.use(workoutController);
 app.use(htmlController);
 

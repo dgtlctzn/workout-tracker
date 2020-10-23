@@ -14,6 +14,7 @@ const WorkoutSchema = new Schema({
   ],
 }, { toJSON: { virtuals: true } });
 
+// adds values for the exercise duration
 WorkoutSchema.virtual("totalDuration").get(function() {
   let total = 0;
   for (const item of this.exercises) {
