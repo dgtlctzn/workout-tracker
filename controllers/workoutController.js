@@ -37,27 +37,30 @@ router.post("/api/workouts", (req, res) => {
 
 // updates current workout (by _id) and adds exercise model to exercises array
 router.put("/api/workouts/:id", (req, res) => {
-  db.Exercise.create(req.body).then(exercise => {
+  db.Exercise.create(req.body).then((exercise) => {
     console.log(req.body);
-    db.Workout.updateOne({_id: req.params.id}, { $push: {exercises: exercise}})
-    .then((updatedWorkout) => {
-      res.json(updatedWorkout);
-      console.log(updatedWorkout)
-    })
-    .catch((err) => {
-      console.log(err);
-      res.json({
-        error: true,
-        data: null,
-        message: "failed to update workout",
+    db.Workout.updateOne(
+      { _id: req.params.id },
+      { $push: { exercises: exercise } }
+    )
+      .then((updatedWorkout) => {
+        res.json(updatedWorkout);
+        console.log(updatedWorkout);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.json({
+          error: true,
+          data: null,
+          message: "failed to update workout",
+        });
       });
-    });
-  })
+  });
 });
 
-// retrieves all workouts
+// retrieves all workouts in range
 router.get("/api/workouts/range", (req, res) => {
-  db.Workout.find()
+  db.Workout.find().sort("day").limit(7)
     .populate("exercises")
     .then((foundWorkouts) => {
       res.json(foundWorkouts);
