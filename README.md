@@ -1,57 +1,76 @@
-# Unit 17 Nosql Homework: Workout Tracker
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+  # Workout Tracker
 
-For this assignment, you'll create a workout tracker. You have already been provided with the front end code in the `Develop` folder. This assignment will require you to create Mongo database with a Mongoose schema and handle routes with Express.
+  ![Workout Tracker still](./public/img/Workout-Tracker.png)
 
-## User Story
+  ## Table of Contents
+  * [Description](#description)
+  * [Installation](#installation)
+  * [Usage](#usage)
+  * [Contributing](#contributing)
+  * [Tests](#tests)
+  * [Questions](#questions)
+  * [License](#license)
 
-* As a user, I want to be able to view create and track daily workouts. I want to be able to log multiple exercises in a workout on a given day. I should also be able to track the name, type, weight, sets, reps, and duration of exercise. If the exercise is a cardio exercise, I should be able to track my distance traveled.
-
-## Business Context
-
-A consumer will reach their fitness goals more quickly when they track their workout progress.
-
-## Acceptance Criteria
-
-When the user loads the page, they should be given the option to create a new workout or continue with their last workout.
-
-The user should be able to:
-
-  * Add exercises to a previous workout plan.
-
-  * Add new exercises to a new workout plan.
-
-  * View the combined weight of multiple exercises on the `stats` page.
-
-To deploy an application with a MongoDB database to Heroku, you'll need to set up a MongoDB Atlas account and connect a database from there to your application. Be sure to use the following guides for support:
-
-  * [Set Up MongoDB Atlas](../04-Important/MongoAtlas-Setup.md)
-
-  * [Deploy with Heroku and MongoDB Atlas](../04-Important/MongoAtlas-Deploy.md)
-
-## Commit Early and Often
-
-One of the most important skills to master as a web developer is version control. Building the habit of committing via Git is important for the following two reasons:
-
-1. Your commit history is a signal to employers that you are actively working on projects and learning new skills.
-
-2. Your commit history allows you to revert your codebase in the event that you need to return to a previous state.
-
-Follow these guidelines for committing:
-
-* Make single-purpose commits for related changes to ensure a clean, manageable history. If you are fixing two issues, make two commits.
-
-* Write descriptive, meaningful commit messages so that you and anyone else looking at your repository can easily understand its history.
-
-* Don't commit half-done work, for the sake of your collaborators (and your future self!).
-
-* Test your application before you commit to ensure functionality at every step in the development process.
-
-We want you to have well over 200 commits by graduation, so commit early and often!
-
-## Submission on BCS
-
-You are required to submit the following:
-
-* The URL to the deployed application
-
-* The URL to the GitHub repository
+  ## Description
+  I was tasked with building out a functional back end server for the fitness tracker app utilizing the NoSQL database MongoDB. A user can add workouts and exercises to the site and information is stored in Mongo. Mongoose was used in Node to query the database. Two Mongoose models were created to handle the stored data: Workout and Exercise. The schema for Workout is as follows:
+  ``` Javascript
+const WorkoutSchema = new Schema({
+  day: {
+    type: Date,
+    default: Date.now
+  },
+  exercises: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Exercise",
+    },
+  ],
+}
+  ```
+And for Exercise:
+```Javascript
+const ExerciseSchema = new Schema({
+    type: {
+        type: String,
+        required: true,
+        enum: ["cardio", "resistance"]
+    },
+    name: {
+        type: String,
+        required: true,
+    },
+    duration: {
+        type: Number,
+        required: true,
+    },
+    weight: {
+        type: Number,
+    },
+    reps: {
+        type: Number,
+    },
+    sets: {
+        type: Number,
+    },
+    distance: {
+        type: Number,
+    }
+});
+```
+  ## Installation
+  A package.json is included in the repo to allow a simple ```npm i``` to install all necessary dependencies.
+  ## Usage
+  The following is a link to the deployed site:
+  
+  [Workout Tracker](https://workout-tracker-joseph.herokuapp.com/)
+  ## Contributing
+  The following packages were used in deploying this application: Express, Mongoose, and Morgan.
+  ## Tests
+  N/A
+  ## Questions
+  Github profile: [dgtlctzn](https://github.com/dgtlctzn)
+  
+  If you have any questions about the project please contact josephperry@gmail.com
+  ## License
+  This project is covered under the GNU license
