@@ -1,12 +1,10 @@
 const mongoose = require("mongoose");
-const { Exercise } = require(".");
 const Schema = mongoose.Schema;
 
 const WorkoutSchema = new Schema({
   day: {
     type: Date,
     default: Date.now
-    // required: true,
   },
   exercises: [
     {
@@ -14,7 +12,15 @@ const WorkoutSchema = new Schema({
       ref: "Exercise",
     },
   ],
-});
+}, { toJSON: { virtuals: true } });
+
+WorkoutSchema.virtual("totalDuration").get(function() {
+  let total = 0;
+  for (const item of this.exercises) {
+    total += item.duration;
+  }
+  return total;
+})
 
 const Workout = mongoose.model("Workout", WorkoutSchema);
 
